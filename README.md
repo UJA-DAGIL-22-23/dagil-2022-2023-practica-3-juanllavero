@@ -12,7 +12,254 @@ Tablero de Trello: https://trello.com/b/y0NoF8MY/p%C3%A1ctica-3
 ![Fauna DB](./assets/img/FaunaDB.png)
 ![Fauna Collection](./assets/img/FaunaCollection.png)
 
+### Documentos
+{
+  "ref": Ref(Collection("Snowboard"), "360618103551295692"),
+  "ts": 1680171073410000,
+  "data": {
+    "nombre": "Andreas",
+    "apellido": "Prommegger",
+    "diaNacimiento": 10,
+    "mesNacimiento": 11,
+    "anioNacimiento": 1980,
+    "pais": "Austria",
+    "partMundiales": [
+      2003,
+      2004,
+      2006,
+      2009,
+      2015
+    ],
+    "medallasOro": 3
+  }
+}
 
+{
+  "ref": Ref(Collection("Snowboard"), "360618195825983693"),
+  "ts": 1680171161400000,
+  "data": {
+    "nombre": "Oskar",
+    "apellido": "Kwiatlkowski",
+    "diaNacimiento": 25,
+    "mesNacimiento": 4,
+    "anioNacimiento": 1996,
+    "pais": "Polonia",
+    "partMundiales": [
+      2015,
+      2016,
+      2018,
+      2022
+    ],
+    "medallasOro": 1
+  }
+}
+
+{
+  "ref": Ref(Collection("Snowboard"), "360618277515296973"),
+  "ts": 1680171239310000,
+  "data": {
+    "nombre": "Dario",
+    "apellido": "Caviezel",
+    "diaNacimiento": 12,
+    "mesNacimiento": 7,
+    "anioNacimiento": 1995,
+    "pais": "Suiza",
+    "partMundiales": [
+      2019,
+      2022,
+      2023
+    ],
+    "medallasOro": 1
+  }
+}
+
+{
+  "ref": Ref(Collection("Snowboard"), "360618434043576525"),
+  "ts": 1680171388585000,
+  "data": {
+    "nombre": "Lee",
+    "apellido": "Chae-Un",
+    "diaNacimiento": 11,
+    "mesNacimiento": 4,
+    "anioNacimiento": 2004,
+    "pais": "Corea del Sur",
+    "partMundiales": [
+      2022,
+      2023
+    ],
+    "medallasOro": 1
+  }
+}
+
+{
+  "ref": Ref(Collection("Snowboard"), "360618514841600204"),
+  "ts": 1680171465640000,
+  "data": {
+    "nombre": "Ryoma",
+    "apellido": "Kimata",
+    "diaNacimiento": 24,
+    "mesNacimiento": 7,
+    "anioNacimiento": 2002,
+    "pais": "Japón",
+    "partMundiales": [
+      2022,
+      2023
+    ],
+    "medallasOro": 0
+  }
+}
+
+{
+  "ref": Ref(Collection("Snowboard"), "360618709241299149"),
+  "ts": 1680171651035000,
+  "data": {
+    "nombre": "Lucas",
+    "apellido": "Eguibar",
+    "diaNacimiento": 9,
+    "mesNacimiento": 2,
+    "anioNacimiento": 1994,
+    "pais": "España",
+    "partMundiales": [
+      2015,
+      2016,
+      2017,
+      2019,
+      2022
+    ],
+    "medallasOro": 2
+  }
+}
+
+{
+  "ref": Ref(Collection("Snowboard"), "360618810439368909"),
+  "ts": 1680171747540000,
+  "data": {
+    "nombre": "Regino",
+    "apellido": "Hernández",
+    "diaNacimiento": 25,
+    "mesNacimiento": 7,
+    "anioNacimiento": 1991,
+    "pais": "España",
+    "partMundiales": [
+      2014,
+      2015,
+      2016,
+      2017,
+      2018
+    ],
+    "medallasOro": 1
+  }
+}
+
+{
+  "ref": Ref(Collection("Snowboard"), "360618891566645452"),
+  "ts": 1680171824910000,
+  "data": {
+    "nombre": "Pierre",
+    "apellido": "Vaultier",
+    "diaNacimiento": 24,
+    "mesNacimiento": 6,
+    "anioNacimiento": 1987,
+    "pais": "Francia",
+    "partMundiales": [
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014
+    ],
+    "medallasOro": 4
+  }
+}
+
+{
+  "ref": Ref(Collection("Snowboard"), "360619004871573709"),
+  "ts": 1680171932970000,
+  "data": {
+    "nombre": "Sebastien",
+    "apellido": "Smits",
+    "diaNacimiento": 13,
+    "mesNacimiento": 7,
+    "anioNacimiento": 1991,
+    "pais": "Bélgica",
+    "partMundiales": [
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2018
+    ],
+    "medallasOro": 3
+  }
+}
+
+{
+  "ref": Ref(Collection("Snowboard"), "360619249577754828"),
+  "ts": 1680172166405000,
+  "data": {
+    "nombre": "Christopher",
+    "apellido": "Corning",
+    "diaNacimiento": 7,
+    "mesNacimiento": 9,
+    "anioNacimiento": 1999,
+    "pais": "Estados Unidos",
+    "partMundiales": [
+      2019,
+      2021,
+      2022,
+      2023
+    ],
+    "medallasOro": 0
+  }
+}
+
+{
+  "ref": Ref(Collection("Snowboard"), "360619402632102093"),
+  "ts": 1680172312300000,
+  "data": {
+    "nombre": "Patrick",
+    "apellido": "Burgener",
+    "diaNacimiento": 1,
+    "mesNacimiento": 6,
+    "anioNacimiento": 1994,
+    "pais": "Suiza",
+    "partMundiales": [
+      2018,
+      2019,
+      2021,
+      2022
+    ],
+    "medallasOro": 1
+  }
+}
+
+{
+  "ref": Ref(Collection("Snowboard"), "360619461504401613"),
+  "ts": 1680172368450000,
+  "data": {
+    "nombre": "Kevin",
+    "apellido": "Hill",
+    "diaNacimiento": 27,
+    "mesNacimiento": 6,
+    "anioNacimiento": 1986,
+    "pais": "Canadá",
+    "partMundiales": [
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008
+    ],
+    "medallasOro": 4
+  }
+}
 
 
 
