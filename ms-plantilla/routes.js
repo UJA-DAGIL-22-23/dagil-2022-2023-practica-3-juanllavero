@@ -46,6 +46,17 @@ router.get("/test_db", async (req, res) => {
     }
 });
 
+/**
+ * Listado personas
+ */
+ router.get("/getTodas", async (req, res) => {
+    try {
+        await callbacks.getTodas(req, res)
+    } catch (error) {
+        console.log(error);
+    }
+});
+
 
 // Exporto el módulo para poder usarlo en server
 module.exports = router;

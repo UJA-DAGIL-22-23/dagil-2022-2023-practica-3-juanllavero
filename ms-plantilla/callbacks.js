@@ -61,9 +61,26 @@ const CB_MODEL_SELECTS = {
         }
     },
 
+    /**
+     * Devuelve la lista de personas
+     */
+     getTodas: async (req, res) => {
+        try {
+            let personas = await client.query(
+                q.Map(
+                    q.Paginate(q.Documents(q.Collection(COLLECTION))),
+                    q.Lambda("X", q.Get(q.Var("X")))
+                )
+            )
+            // console.log( personas ) // Para comprobar qué se ha devuelto en personas
+            CORS(res)
+                .status(200)
+                .json(personas)
+        } catch (error) {
+            CORS(res).status(500).json({ error: error.description })
+        }
+    },
 }
-
-
 
 // CALLBACKS ADICIONALES
 
@@ -101,7 +118,6 @@ const CB_OTHERS = {
             CORS(res).status(500).json({ error: error.description })
         }
     },
-
 }
 
 // Une todos los callbacks en un solo objeto para poder exportarlos.
