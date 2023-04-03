@@ -5,5 +5,33 @@
  * @date 03-Feb-2023
  */
 
- 
+ table.listado-personas {
+    width: 100%;
+    border: 1px solid rgba(0, 0, 100, 0.8);
+}
 
+table.listado-personas thead th {
+    margin: 3px;
+    height: 2.5em;
+    background-color: rgba(0, 0, 0, 0.4);
+    text-transform: uppercase;
+}
+
+table.listado-personas tbody td {
+    padding: 0.5em;
+    text-align: center;
+}
+
+table.listado-personas tbody tr {
+    margin: 3px;
+    height: 2em;
+    background-color: rgba(0, 0, 100, 0.1)
+}
+
+table.listado-personas thead,
+table.listado-personas tbody,
+table.listado-personas tr,
+table.listado-personas td {
+    text-align: center;
+    margin: 0 auto 0 auto;
+}
