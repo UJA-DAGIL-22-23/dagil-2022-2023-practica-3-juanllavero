@@ -15,13 +15,15 @@ Tablero de Trello: https://trello.com/b/y0NoF8MY/p%C3%A1ctica-3
 ### Documentos
 {
   "ref": Ref(Collection("Snowboard"), "360618103551295692"),
-  "ts": 1680171073410000,
+  "ts": 1680537333040000,
   "data": {
     "nombre": "Andreas",
     "apellido": "Prommegger",
-    "diaNacimiento": 10,
-    "mesNacimiento": 11,
-    "anioNacimiento": 1980,
+    "fechaNacimiento": {
+      "dia": 10,
+      "mes": 11,
+      "año": 1980
+    },
     "pais": "Austria",
     "partMundiales": [
       2003,
@@ -36,13 +38,15 @@ Tablero de Trello: https://trello.com/b/y0NoF8MY/p%C3%A1ctica-3
 
 {
   "ref": Ref(Collection("Snowboard"), "360618195825983693"),
-  "ts": 1680171161400000,
+  "ts": 1680537424245000,
   "data": {
     "nombre": "Oskar",
     "apellido": "Kwiatlkowski",
-    "diaNacimiento": 25,
-    "mesNacimiento": 4,
-    "anioNacimiento": 1996,
+    "fechaNacimiento": {
+      "dia": 25,
+      "mes": 4,
+      "año": 1996
+    },
     "pais": "Polonia",
     "partMundiales": [
       2015,
@@ -56,13 +60,15 @@ Tablero de Trello: https://trello.com/b/y0NoF8MY/p%C3%A1ctica-3
 
 {
   "ref": Ref(Collection("Snowboard"), "360618277515296973"),
-  "ts": 1680171239310000,
+  "ts": 1680537441985000,
   "data": {
     "nombre": "Dario",
     "apellido": "Caviezel",
-    "diaNacimiento": 12,
-    "mesNacimiento": 7,
-    "anioNacimiento": 1995,
+    "fechaNacimiento": {
+      "dia": 12,
+      "mes": 7,
+      "año": 1995
+    },
     "pais": "Suiza",
     "partMundiales": [
       2019,
@@ -75,13 +81,15 @@ Tablero de Trello: https://trello.com/b/y0NoF8MY/p%C3%A1ctica-3
 
 {
   "ref": Ref(Collection("Snowboard"), "360618434043576525"),
-  "ts": 1680171388585000,
+  "ts": 1680537457290000,
   "data": {
     "nombre": "Lee",
     "apellido": "Chae-Un",
-    "diaNacimiento": 11,
-    "mesNacimiento": 4,
-    "anioNacimiento": 2004,
+    "fechaNacimiento": {
+      "dia": 11,
+      "mes": 4,
+      "año": 2004
+    },
     "pais": "Corea del Sur",
     "partMundiales": [
       2022,
@@ -93,13 +101,15 @@ Tablero de Trello: https://trello.com/b/y0NoF8MY/p%C3%A1ctica-3
 
 {
   "ref": Ref(Collection("Snowboard"), "360618514841600204"),
-  "ts": 1680171465640000,
+  "ts": 1680537473030000,
   "data": {
     "nombre": "Ryoma",
     "apellido": "Kimata",
-    "diaNacimiento": 24,
-    "mesNacimiento": 7,
-    "anioNacimiento": 2002,
+    "fechaNacimiento": {
+      "dia": 24,
+      "mes": 7,
+      "año": 2002
+    },
     "pais": "Japón",
     "partMundiales": [
       2022,
@@ -111,13 +121,15 @@ Tablero de Trello: https://trello.com/b/y0NoF8MY/p%C3%A1ctica-3
 
 {
   "ref": Ref(Collection("Snowboard"), "360618709241299149"),
-  "ts": 1680171651035000,
+  "ts": 1680537487300000,
   "data": {
     "nombre": "Lucas",
     "apellido": "Eguibar",
-    "diaNacimiento": 9,
-    "mesNacimiento": 2,
-    "anioNacimiento": 1994,
+    "fechaNacimiento": {
+      "dia": 9,
+      "mes": 2,
+      "año": 1994
+    },
     "pais": "España",
     "partMundiales": [
       2015,
@@ -132,13 +144,15 @@ Tablero de Trello: https://trello.com/b/y0NoF8MY/p%C3%A1ctica-3
 
 {
   "ref": Ref(Collection("Snowboard"), "360618810439368909"),
-  "ts": 1680171747540000,
+  "ts": 1680537503250000,
   "data": {
     "nombre": "Regino",
     "apellido": "Hernández",
-    "diaNacimiento": 25,
-    "mesNacimiento": 7,
-    "anioNacimiento": 1991,
+    "fechaNacimiento": {
+      "dia": 25,
+      "mes": 7,
+      "año": 1991
+    },
     "pais": "España",
     "partMundiales": [
       2014,
@@ -153,13 +167,15 @@ Tablero de Trello: https://trello.com/b/y0NoF8MY/p%C3%A1ctica-3
 
 {
   "ref": Ref(Collection("Snowboard"), "360618891566645452"),
-  "ts": 1680171824910000,
+  "ts": 1680537517210000,
   "data": {
     "nombre": "Pierre",
     "apellido": "Vaultier",
-    "diaNacimiento": 24,
-    "mesNacimiento": 6,
-    "anioNacimiento": 1987,
+    "fechaNacimiento": {
+      "dia": 24,
+      "mes": 6,
+      "año": 1987
+    },
     "pais": "Francia",
     "partMundiales": [
       2009,
@@ -175,13 +191,15 @@ Tablero de Trello: https://trello.com/b/y0NoF8MY/p%C3%A1ctica-3
 
 {
   "ref": Ref(Collection("Snowboard"), "360619004871573709"),
-  "ts": 1680171932970000,
+  "ts": 1680537532300000,
   "data": {
     "nombre": "Sebastien",
     "apellido": "Smits",
-    "diaNacimiento": 13,
-    "mesNacimiento": 7,
-    "anioNacimiento": 1991,
+    "fechaNacimiento": {
+      "dia": 13,
+      "mes": 7,
+      "año": 1991
+    },
     "pais": "Bélgica",
     "partMundiales": [
       2008,
@@ -199,13 +217,15 @@ Tablero de Trello: https://trello.com/b/y0NoF8MY/p%C3%A1ctica-3
 
 {
   "ref": Ref(Collection("Snowboard"), "360619249577754828"),
-  "ts": 1680172166405000,
+  "ts": 1680537547860000,
   "data": {
     "nombre": "Christopher",
     "apellido": "Corning",
-    "diaNacimiento": 7,
-    "mesNacimiento": 9,
-    "anioNacimiento": 1999,
+    "fechaNacimiento": {
+      "dia": 7,
+      "mes": 9,
+      "año": 1991
+    },
     "pais": "Estados Unidos",
     "partMundiales": [
       2019,
@@ -219,13 +239,15 @@ Tablero de Trello: https://trello.com/b/y0NoF8MY/p%C3%A1ctica-3
 
 {
   "ref": Ref(Collection("Snowboard"), "360619402632102093"),
-  "ts": 1680172312300000,
+  "ts": 1680537561020000,
   "data": {
     "nombre": "Patrick",
     "apellido": "Burgener",
-    "diaNacimiento": 1,
-    "mesNacimiento": 6,
-    "anioNacimiento": 1994,
+    "fechaNacimiento": {
+      "dia": 1,
+      "mes": 6,
+      "año": 1994
+    },
     "pais": "Suiza",
     "partMundiales": [
       2018,
@@ -239,13 +261,15 @@ Tablero de Trello: https://trello.com/b/y0NoF8MY/p%C3%A1ctica-3
 
 {
   "ref": Ref(Collection("Snowboard"), "360619461504401613"),
-  "ts": 1680172368450000,
+  "ts": 1680537574020000,
   "data": {
     "nombre": "Kevin",
     "apellido": "Hill",
-    "diaNacimiento": 27,
-    "mesNacimiento": 6,
-    "anioNacimiento": 1986,
+    "fechaNacimiento": {
+      "dia": 27,
+      "mes": 6,
+      "año": 1986
+    },
     "pais": "Canadá",
     "partMundiales": [
       2001,
@@ -260,6 +284,23 @@ Tablero de Trello: https://trello.com/b/y0NoF8MY/p%C3%A1ctica-3
     "medallasOro": 4
   }
 }
+
+## Primer incremento
+![Incremento1Principio](./assets/img/Incremento1Principio.png)
+
+HU - Acerca de
+
+![HUAcercaDe](./assets/img/HUAcercaDe.png)
+
+HU - Listar toda la información de todas las personas
+
+![HUListarTodas](./assets/img/HUListarTodas.png)
+
+Final del incremento
+
+![Incremento1Final](./assets/img/Incremento1Final.png)
+
+No se han completado las tres historias de usuario, pues una de ellas ha sido abandonada. Esto se debe a que he considerado incluir antes otras historias de usuario que me parecen más necesarias en esta primera etapa del desarrollo. Por supuesto, esto no significa que dicha historia de usuario no vaya a ser implementada, sino que no lo será en esta release.
 
 
 
