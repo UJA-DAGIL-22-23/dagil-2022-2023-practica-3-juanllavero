@@ -166,6 +166,49 @@ describe("Personas.personaComoTabla: ", function () {
         });
 })
 
+describe("Personas.plantillaTablaPersonas.actualiza: ", function () {
+    let d = {
+        ref: {
+            "@ref": {
+                id: "214145321233"
+            }
+        },
+        ts: 1680537333040000,
+        data: {
+            nombre: "Andreas",
+            apellido: "Prommegger",
+            fechaNacimiento: {
+                dia: 10,
+                mes: 11,
+                año: 1980
+            },
+            pais: "Austria",
+            partMundiales: [
+                2003,
+                2004,
+                2006,
+                2009,
+                2015
+            ],
+            medallasOro: 3
+        }
+    }
+
+    it("debería devolver una fila de tabla con los datos de una persona",
+        function () {
+            let msj = Personas.plantillaTablaPersonas.actualiza(d)
+            expect(msj.includes(d.ref["@ref"].id)).toBeTrue();
+            expect(msj.includes(d.data.nombre)).toBeTrue();
+            expect(msj.includes(d.data.apellido)).toBeTrue();
+            expect(msj.includes(d.data.fechaNacimiento.dia)).toBeTrue();
+            expect(msj.includes(d.data.fechaNacimiento.mes)).toBeTrue();
+            expect(msj.includes(d.data.fechaNacimiento.año)).toBeTrue();
+            expect(msj.includes(d.data.pais)).toBeTrue();
+            expect(msj.includes(d.data.partMundiales)).toBeTrue();
+            expect(msj.includes(d.data.medallasOro)).toBeTrue();
+        });
+})
+
 
 /*
 IMPORTANTE
