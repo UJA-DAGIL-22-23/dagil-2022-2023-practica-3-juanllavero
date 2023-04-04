@@ -7,6 +7,8 @@
 
 "use strict";
 
+let mostrandoUna = false;
+
 /// Creo el espacio de nombres
 let Plantilla = {};
 
@@ -131,7 +133,7 @@ Personas.plantillaTablaPersonas = {}
 // Cabecera de la tabla
 Personas.plantillaTablaPersonas.cabecera = `<table width="100%" class="listado-personas">
                     <thead>
-                        <th width="10%">Id</th>
+                        <th width="10%">ID</th>
                         <th width="10%">Nombre</th>
                         <th width="20%">Apellido</th>
                         <th width="10%">Fecha de nacimiento</th>
@@ -152,6 +154,11 @@ Personas.plantillaTablaPersonas.cuerpo = `
         <td>${Personas.plantillaTags.PAÍS}</td>
         <td>${Personas.plantillaTags["PARTICIPACIONES MUNDIALES"]}</td>
         <td>${Personas.plantillaTags["MEDALLAS DE ORO"]}</td>
+        <td>
+            <div>
+                <a href="javascript:Personas.mostrar('${Personas.plantillaTags.ID}')" class="opcion-secundaria mostrar">Mostrar</a>
+            </div>
+        </td>
     </tr>
     `;
 
@@ -203,6 +210,25 @@ Personas.recupera = async function (callBackFn) {
     }
 }
 
+/**
+ * Función que recuperar todas las personas llamando al MS Personas. 
+ * Posteriormente, llama a la función callBackFn para trabajar con los datos recuperados.
+ * @param {String} idPersona Identificador de la persona a mostrar
+ * @param {función} callBackFn Función a la que se llamará una vez recibidos los datos.
+ */
+ Personas.recuperaUnaPersona = async function (idPersona, callBackFn) {
+    try {
+        const url = Frontend.API_GATEWAY + "/plantilla/getPorId/" + idPersona
+        const response = await fetch(url);
+        if (response) {
+            const persona = await response.json()
+            callBackFn(persona)
+        }
+    } catch (error) {
+        alert("Error: No se han podido acceder al API Gateway")
+        console.error(error)
+    }
+}
 
 /**
  * Actualiza el cuerpo de la tabla con los datos de la persona que se le pasa
@@ -230,8 +256,39 @@ Personas.plantillaTablaPersonas.actualiza = function (persona) {
 }
 
 /**
+ * Imprime los datos de una persona como una tabla usando la plantilla del formulario.
+ * @param {persona} Persona Objeto con los datos de la persona
+ * @returns Una cadena con la tabla que tiene ya los datos actualizados
+ */
+ Personas.personaComoTabla = function (persona) {
+    return Personas.plantillaTablaPersonas.cabecera
+        + Personas.plantillaTablaPersonas.actualiza(persona)
+        + Personas.plantillaTablaPersonas.pie;
+}
+
+/**
+ * Función para mostrar en pantalla los detalles de una persona que se ha recuperado de la BBDD por su id
+ * @param {Persona} persona Datos de la persona a mostrar
+ */
+ Personas.imprimeUnaPersona = function (persona) {
+    // console.log(persona) // Para comprobar lo que hay en vector
+    let msj = Personas.personaComoTabla(persona);
+
+    // Borro toda la info de Article y la sustituyo por la que me interesa
+    Frontend.Article.actualizar("Mostrar una persona", msj)
+}
+
+/**
  * Función principal para recuperar las personas desde el MS y, posteriormente, imprimirlas.
  */
  Personas.listar = function () {
     Personas.recupera(Personas.imprimeMuchasPersonas);
+}
+
+/**
+ * Función principal para mostrar los datos de una persona desde el MS y, posteriormente, imprimirla.
+ * @param {String} idPersona Identificador de la persona a mostrar
+ */
+ Personas.mostrar = function (idPersona) {
+    this.recuperaUnaPersona(idPersona, this.imprimeUnaPersona);
 }

@@ -57,6 +57,17 @@ router.get("/test_db", async (req, res) => {
     }
 });
 
+/**
+ * Mostrar todos los datos de una persona dado ID
+ */
+ router.get("/getPorId/:idPersona", async (req, res) => {
+    try {
+        await callbacks.getPorId(req, res)
+    } catch (error) {
+        console.log(error);
+    }
+});
+
 
 // Exporto el módulo para poder usarlo en server
 module.exports = router;
