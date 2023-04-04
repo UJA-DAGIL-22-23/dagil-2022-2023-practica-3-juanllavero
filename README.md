@@ -302,6 +302,12 @@ Final del incremento
 
 No se han completado las tres historias de usuario, pues una de ellas ha sido abandonada. Esto se debe a que he considerado incluir antes otras historias de usuario que me parecen más necesarias en esta primera etapa del desarrollo. Por supuesto, esto no significa que dicha historia de usuario no vaya a ser implementada, sino que no lo será en esta release.
 
+## Segundo incremento
+![Incremento2Principio](./assets/img/Incremento2Principio.png)
+
+HU - Mostrar todos los datos de una persona
+
+![HUMostrarUna](./assets/img/HUMostrarUno.png)
 
 
 [![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-c66648af7eb3fe8bc4f294546bfd86ef473780cde1dea487d3c4ff354943c9ae.svg)](https://classroom.github.com/online_ide?assignment_repo_id=10434635&assignment_repo_type=AssignmentRepo)
