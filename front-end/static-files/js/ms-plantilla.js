@@ -7,8 +7,6 @@
 
 "use strict";
 
-let mostrandoUna = false;
-
 /// Creo el espacio de nombres
 let Plantilla = {};
 
@@ -115,6 +113,12 @@ Plantilla.procesarAcercaDe = function () {
 /// Espacio de nombres para jugadores
 let Personas = {};
 
+Personas.anteriorID = "";
+Personas.siguienteID = "";
+
+/// Vector con las personas obtenidas de la base de datos
+Personas.vectorPersonas = [];
+
 // Tags que voy a usar para sustituir los campos
 Personas.plantillaTags = {
     "ID": "### ID ###",
@@ -132,20 +136,68 @@ Personas.plantillaTablaPersonas = {}
 
 // Cabecera de la tabla
 Personas.plantillaTablaPersonas.cabecera = `<table width="100%" class="listado-personas">
-                    <thead>
-                        <th width="10%">ID</th>
-                        <th width="10%">Nombre</th>
-                        <th width="20%">Apellido</th>
-                        <th width="10%">Fecha de nacimiento</th>
-                        <th width="15%">País</th>
-                        <th width="15%">Participaciones mundiales</th>
-                        <th width="10%">Medallas de oro</th>
-                    </thead>
-                    <tbody>
-    `;
+                <thead>
+                    <th width="10%">ID</th>
+                    <th width="10%">Nombre</th>
+                    <th width="20%">Apellido</th>
+                    <th width="10%">Fecha de nacimiento</th>
+                    <th width="15%">País</th>
+                    <th width="15%">Participaciones mundiales</th>
+                    <th width="10%">Medallas de oro</th>
+                </thead>
+                <tbody>
+`;
 
 // Elemento TR que muestra los datos de una persona
 Personas.plantillaTablaPersonas.cuerpo = `
+<tr title="${Personas.plantillaTags.ID}">
+    <td>${Personas.plantillaTags.ID}</td>
+    <td>${Personas.plantillaTags.NOMBRE}</td>
+    <td>${Personas.plantillaTags.APELLIDO}</td>
+    <td>${Personas.plantillaTags["FECHA DE ACIMIENTO"]}</td>
+    <td>${Personas.plantillaTags.PAÍS}</td>
+    <td>${Personas.plantillaTags["PARTICIPACIONES MUNDIALES"]}</td>
+    <td>${Personas.plantillaTags["MEDALLAS DE ORO"]}</td>
+    <td>
+        <div>
+            <a href="javascript:Personas.mostrar('${Personas.plantillaTags.ID}')" class="opcion-secundaria mostrar">Mostrar</a>
+        </div>
+    </td>
+</tr>
+`;
+
+
+// Pie de la tabla
+Personas.plantillaTablaPersonas.pie = `        </tbody>
+             </table>
+             `;
+
+Personas.plantillaParaUnaPersona = function () {
+    Personas.plantillaTablaPersonas.cuerpo = `
+    <tr title="${Personas.plantillaTags.ID}">
+        <td>${Personas.plantillaTags.ID}</td>
+        <td>${Personas.plantillaTags.NOMBRE}</td>
+        <td>${Personas.plantillaTags.APELLIDO}</td>
+        <td>${Personas.plantillaTags["FECHA DE ACIMIENTO"]}</td>
+        <td>${Personas.plantillaTags.PAÍS}</td>
+        <td>${Personas.plantillaTags["PARTICIPACIONES MUNDIALES"]}</td>
+        <td>${Personas.plantillaTags["MEDALLAS DE ORO"]}</td>
+        <td>
+            <div>
+                <a href="javascript:Personas.mostrar('${Personas.anteriorID}')" class="opcion-secundaria">Anterior</a>
+            </div>
+        </td>
+        <td>
+            <div>
+                <a href="javascript:Personas.mostrar('${Personas.siguienteID}')" class="opcion-secundaria">Siguiente</a>
+            </div>
+        </td>
+    </tr>
+    `;
+}
+
+Personas.plantillaParaVariasPersonas = function () {
+    Personas.plantillaTablaPersonas.cuerpo = `
     <tr title="${Personas.plantillaTags.ID}">
         <td>${Personas.plantillaTags.ID}</td>
         <td>${Personas.plantillaTags.NOMBRE}</td>
@@ -161,11 +213,7 @@ Personas.plantillaTablaPersonas.cuerpo = `
         </td>
     </tr>
     `;
-
-// Pie de la tabla
-Personas.plantillaTablaPersonas.pie = `        </tbody>
-             </table>
-             `;
+}
 
 /**
  * Actualiza el cuerpo de la plantilla deseada con los datos de la persona que se le pasa
@@ -202,7 +250,7 @@ Personas.recupera = async function (callBackFn) {
         //throw error
     }
 
-    // Muestro todas las persoans que se han descargado
+    // Muestro todas las personas que se han descargado
     let vectorPersonas = null
     if (response) {
         vectorPersonas = await response.json()
@@ -244,10 +292,12 @@ Personas.plantillaTablaPersonas.actualiza = function (persona) {
  * @param {Vector_de_personas} vector Vector con los datos de las personas a mostrar
  */
  Personas.imprimeMuchasPersonas = function (vector) {
-    // console.log(vector) // Para comprobar lo que hay en vector
+    Personas.plantillaParaVariasPersonas();
 
     // Compongo el contenido que se va a mostrar dentro de la tabla
     let msj = Personas.plantillaTablaPersonas.cabecera
+    Personas.vectorPersonas = []
+    vector.forEach(p => Personas.vectorPersonas.push(p.ref['@ref'].id))
     vector.forEach(e => msj += Personas.plantillaTablaPersonas.actualiza(e))
     msj += Personas.plantillaTablaPersonas.pie
 
@@ -268,10 +318,13 @@ Personas.plantillaTablaPersonas.actualiza = function (persona) {
 
 /**
  * Función para mostrar en pantalla los detalles de una persona que se ha recuperado de la BBDD por su id
- * @param {Persona} persona Datos de la persona a mostrar
+ * @param {persona} persona Datos de la persona a mostrar
  */
  Personas.imprimeUnaPersona = function (persona) {
-    // console.log(persona) // Para comprobar lo que hay en vector
+    Personas.anteriorID = Personas.anterior(persona.ref['@ref'].id)
+    Personas.siguienteID = Personas.siguiente(persona.ref['@ref'].id)
+
+    Personas.plantillaParaUnaPersona();
     let msj = Personas.personaComoTabla(persona);
 
     // Borro toda la info de Article y la sustituyo por la que me interesa
@@ -291,4 +344,32 @@ Personas.plantillaTablaPersonas.actualiza = function (persona) {
  */
  Personas.mostrar = function (idPersona) {
     this.recuperaUnaPersona(idPersona, this.imprimeUnaPersona);
+}
+
+/**
+ * Función para mostrar la persona anterior a la actual
+ */
+Personas.anterior = function (idPersona) {
+    if (Personas.vectorPersonas.length == 0)
+        return "No hay personas"
+    for (let i = 1; i < Personas.vectorPersonas.length; i++){
+        if (Personas.vectorPersonas[i] == idPersona){
+            return Personas.vectorPersonas[i - 1]
+        }
+    }
+    return Personas.vectorPersonas[0];
+}
+
+/**
+ * Función para mostrar la persona siguiente a la actual
+ */
+ Personas.siguiente = function (idPersona) {
+    if (Personas.vectorPersonas.length == 0)
+        return "No hay personas"
+    for (let i = 0; i < Personas.vectorPersonas.length - 1; i++){
+        if (Personas.vectorPersonas[i] == idPersona){
+            return Personas.vectorPersonas[i + 1]
+        }
+    }
+    return Personas.vectorPersonas[Personas.vectorPersonas.length - 1];
 }
