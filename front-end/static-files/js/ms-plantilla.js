@@ -184,12 +184,12 @@ Personas.plantillaParaUnaPersona = function () {
         <td>${Personas.plantillaTags["MEDALLAS DE ORO"]}</td>
         <td>
             <div>
-                <a href="javascript:Personas.mostrar('${Personas.anteriorID}')" class="opcion-secundaria">Anterior</a>
+                <a href="javascript:Personas.mostrar('${Personas.anteriorID}')" class="opcion-secundaria mostrar">Anterior</a>
             </div>
         </td>
         <td>
             <div>
-                <a href="javascript:Personas.mostrar('${Personas.siguienteID}')" class="opcion-secundaria">Siguiente</a>
+                <a href="javascript:Personas.mostrar('${Personas.siguienteID}')" class="opcion-secundaria mostrar">Siguiente</a>
             </div>
         </td>
     </tr>
@@ -347,7 +347,7 @@ Personas.plantillaTablaPersonas.actualiza = function (persona) {
 }
 
 /**
- * Función para mostrar la persona anterior a la actual
+ * Función para actualizar la variable que almacena el ID de la persona anterior a la actual
  */
 Personas.anterior = function (idPersona) {
     if (Personas.vectorPersonas.length == 0)
@@ -361,7 +361,7 @@ Personas.anterior = function (idPersona) {
 }
 
 /**
- * Función para mostrar la persona siguiente a la actual
+ * Función para actualizar la variable que almacena el ID de la persona siguiente a la actual
  */
  Personas.siguiente = function (idPersona) {
     if (Personas.vectorPersonas.length == 0)
