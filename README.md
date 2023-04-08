@@ -309,6 +309,14 @@ HU - Mostrar todos los datos de una persona
 
 ![HUMostrarUna](./assets/img/HUMostrarUno.png)
 
+HU - Mostrar anterior/siguiente persona a la actual con un solo click
+
+![HUCambiarAntSig](./assets/img/HUCambiarAntSig.png)
+![HUCambiarAntSigCodigo](./assets/img/HUCambiarAntSigCodigo.png)
+
+
+
+
 
 [![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-c66648af7eb3fe8bc4f294546bfd86ef473780cde1dea487d3c4ff354943c9ae.svg)](https://classroom.github.com/online_ide?assignment_repo_id=10434635&assignment_repo_type=AssignmentRepo)
 # *Plantilla Práctica Microservicios*: descripción de la aplicación
