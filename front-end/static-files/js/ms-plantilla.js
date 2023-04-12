@@ -127,7 +127,9 @@ Personas.plantillaTags = {
     "FECHA DE ACIMIENTO": "### FECHA DE ACIMIENTO ###",
     "PAÍS": "### PAÍS ###",
     "PARTICIPACIONES MUNDIALES": "### PARTICIPACIONES MUNDIALES ###",
-    "MEDALLAS DE ORO": "### MEDALLAS DE ORO ###"
+    "MEDALLAS DE ORO": "### MEDALLAS DE ORO ###",
+    "ANTERIOR": "### ANTERIOR ###",
+    "SIGUIENTE": "### SIGUIENTE ###"
 }
 
 /// Plantilla para poner los datos de varias personas dentro de una tabla
@@ -265,32 +267,34 @@ Personas.plantillaFormularioPersona.formulario = `
                         name="medallas_persona"/>
                 </td>
             </tr>
-            <tr>
-                <td></td>
-                <td>
-                    <div>
-                        <a href="javascript:Personas.mostrar('${Personas.anteriorID}')" class="opcion-secundaria mostrar">Anterior</a>
-                    </div>
-                </td>
-                <td>
-                    <div><a href="javascript:Personas.guardar()" class="opcion-terciaria editar ocultar">Guardar</a></div>
-                </td>
-                <td>
-                    <div><a href="javascript:Personas.editar()" class="opcion-secundaria mostrar">Editar</a></div>
-                </td>
-                <td>
-                    <div><a href="javascript:Personas.cancelar()" class="opcion-terciaria editar ocultar">Cancelar</a></div>
-                </td>
-                <td>
-                    <div>
-                        <a href="javascript:Personas.mostrar('${Personas.siguienteID}')" class="opcion-secundaria mostrar">Siguiente</a>
-                    </div>
-                </td>
-                <td></td>
-            </tr>
         </tbody>
     </table>
 </form>
+<table width="100%" class="listado-personas">
+    <tr>
+        <td></td>
+        <td>
+            <div>
+                <a href="javascript:Personas.mostrar('${Personas.plantillaTags.ANTERIOR}')" class="opcion-secundaria mostrar">Anterior</a>
+            </div>
+        </td>
+        <td>
+            <div><a href="javascript:Personas.guardar()" class="opcion-terciaria editar ocultar">Guardar</a></div>
+        </td>
+        <td>
+            <div><a href="javascript:Personas.editar()" class="opcion-secundaria mostrar">Editar</a></div>
+        </td>
+        <td>
+            <div><a href="javascript:Personas.cancelar()" class="opcion-terciaria editar ocultar">Cancelar</a></div>
+        </td>
+        <td>
+            <div>
+                <a href="javascript:Personas.mostrar('${Personas.plantillaTags.SIGUIENTE}')" class="opcion-secundaria mostrar">Siguiente</a>
+            </div>
+        </td>
+        <td></td>
+    </tr>
+</table>
 `;
 
 /**
@@ -308,6 +312,8 @@ Personas.plantillaFormularioPersona.formulario = `
         .replace(new RegExp(Personas.plantillaTags.PAÍS, 'g'), persona.data.pais)
         .replace(new RegExp(Personas.plantillaTags["PARTICIPACIONES MUNDIALES"], 'g'), persona.data.partMundiales)
         .replace(new RegExp(Personas.plantillaTags["MEDALLAS DE ORO"], 'g'), persona.data.medallasOro)
+        .replace(new RegExp(Personas.plantillaTags.ANTERIOR, 'g'), Personas.anteriorID)
+        .replace(new RegExp(Personas.plantillaTags.SIGUIENTE, 'g'), Personas.siguienteID)
 }
              
 /**
@@ -419,7 +425,7 @@ Personas.plantillaTablaPersonas.actualiza = function (persona) {
  Personas.imprimeUnaPersona = function (persona) {
     Personas.anteriorID = Personas.anterior(persona.ref['@ref'].id)
     Personas.siguienteID = Personas.siguiente(persona.ref['@ref'].id)
-
+    
     //Personas.plantillaParaUnaPersona();
     let msj = Personas.personaComoFormulario(persona);
 
