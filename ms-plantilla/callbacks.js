@@ -72,7 +72,6 @@ const CB_MODEL_SELECTS = {
                     q.Lambda("X", q.Get(q.Var("X")))
                 )
             )
-            // console.log( personas ) // Para comprobar qué se ha devuelto en personas
             CORS(res)
                 .status(200)
                 .json(personas)
@@ -88,14 +87,46 @@ const CB_MODEL_SELECTS = {
     */
     getPorId: async (req, res) => {
         try {
-            // console.log( "getPorId req", req.params.idPersona ) // req.params contiene todos los parámetros de la llamada
             let persona = await client.query(
                 q.Get(q.Ref(q.Collection(COLLECTION), req.params.idPersona))
             )
-            // console.log( persona ) // Para comprobar qué se ha devuelto en persona
             CORS(res)
                 .status(200)
                 .json(persona)
+        } catch (error) {
+            CORS(res).status(500).json({ error: error.description })
+        }
+    },
+    /**
+    * Método para ocambiar los datos de una persona
+    * @param {*} req Objeto con los parámetros que se han pasado en la llamada a esta URL 
+    * @param {*} res Objeto Response con las respuesta que se va a dar a la petición recibida
+    */
+     setTodo: async (req, res) => {
+        try {
+            let valorDevuelto = {}
+            let data = (Object.values(req.body)[0] === '') ? JSON.parse(Object.keys(req.body)[0]) : req.body
+            let persona = await client.query(
+                q.Update(
+                    q.Ref(q.Collection(COLLECTION), data.id),
+                    {
+                        data: {
+                            nombre: data.nombre,
+                            apellido: data.apellido,
+                            pais: data.pais,
+                            medallasOro: data.medallasOro 
+                        },
+                    },
+                )
+            )
+                .then((ret) => {
+                    valorDevuelto = ret
+                    CORS(res)
+                        .status(200)
+                        .header( 'Content-Type', 'application/json' )
+                        .json(valorDevuelto)
+                })
+
         } catch (error) {
             CORS(res).status(500).json({ error: error.description })
         }

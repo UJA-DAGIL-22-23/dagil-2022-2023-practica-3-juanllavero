@@ -166,7 +166,6 @@ Personas.plantillaTablaPersonas.cuerpo = `
 </tr>
 `;
 
-
 // Pie de la tabla
 Personas.plantillaTablaPersonas.pie = `        </tbody>
              </table>
@@ -214,6 +213,84 @@ Personas.plantillaParaVariasPersonas = function () {
     </tr>
     `;
 }
+
+Personas.form = {
+    NOMBRE: "form-persona-nombre",
+    APELLIDO: "form-persona-apellido",
+    PAÍS: "form-persona-pais",
+    ["MEDALLAS DE ORO"]: "form-persona-medallas",
+}
+
+//Persona que se muestra actualmente
+Personas.personaMostrada = null
+
+/// Plantilla para poner los datos de una persona en un tabla dentro de un formulario
+Personas.plantillaFormularioPersona = {}
+
+// Cabecera del formulario
+Personas.plantillaFormularioPersona.formulario = `
+<form method='post' action=''>
+    <table width="100%" class="listado-personas">
+        <thead>
+            <th width="10%">Id</th><th width="20%">Nombre</th><th width="20%">Apellido</th><th width="10%">Fecha de nacimiento</th>
+            <th width="15%">País</th><th width="25%">Participaciones mundiales</th><th width="10%">Medallas de oro</th>
+        </thead>
+        <tbody>
+            <tr title="${Personas.plantillaTags.ID}">
+                <td><input type="text" class="form-persona-elemento" disabled id="form-persona-id"
+                        value="${Personas.plantillaTags.ID}" 
+                        name="id_persona"/>
+                </td>
+                <td><input type="text" class="form-persona-elemento editable" disabled
+                        id="form-persona-nombre" required value="${Personas.plantillaTags.NOMBRE}" 
+                        name="nombre_persona"/>
+                </td>
+                <td><input type="text" class="form-persona-elemento editable" disabled
+                        id="form-persona-apellido" value="${Personas.plantillaTags.APELLIDO}" 
+                        name="apellido_persona"/>
+                <td><input type="text" class="form-persona-elemento" disabled
+                        id="form-persona-fechaN" value="${Personas.plantillaTags["FECHA DE ACIMIENTO"]}" 
+                        name="fechaN_persona"/>
+                <td><input type="text" class="form-persona-elemento editable" disabled
+                        id="form-persona-pais" required value="${Personas.plantillaTags.PAÍS}" 
+                        name="pais_persona"/>
+                </td>
+                <td><input type="text" class="form-persona-elemento" disabled
+                        id="form-persona-participaciones" required value="${Personas.plantillaTags["PARTICIPACIONES MUNDIALES"]}" 
+                        name="participaciones_persona"/>
+                </td>
+                <td><input type="number" class="form-persona-elemento editable" disabled
+                        id="form-persona-medallas" max="20" required value="${Personas.plantillaTags["MEDALLAS DE ORO"]}" 
+                        name="medallas_persona"/>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <div>
+                        <a href="javascript:Personas.mostrar('${Personas.anteriorID}')" class="opcion-secundaria mostrar">Anterior</a>
+                    </div>
+                </td>
+                <td>
+                    <div><a href="javascript:Personas.guardar()" class="opcion-terciaria editar ocultar">Guardar</a></div>
+                </td>
+                <td>
+                    <div><a href="javascript:Personas.editar()" class="opcion-secundaria mostrar">Editar</a></div>
+                </td>
+                <td>
+                    <div><a href="javascript:Personas.cancelar()" class="opcion-terciaria editar ocultar">Cancelar</a></div>
+                </td>
+                <td>
+                    <div>
+                        <a href="javascript:Personas.mostrar('${Personas.siguienteID}')" class="opcion-secundaria mostrar">Siguiente</a>
+                    </div>
+                </td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+`;
 
 /**
  * Actualiza el cuerpo de la plantilla deseada con los datos de la persona que se le pasa
@@ -288,6 +365,24 @@ Personas.plantillaTablaPersonas.actualiza = function (persona) {
 }
 
 /**
+ * Actualiza el formulario con los datos de la persona que se le pasa
+ * @param {Persona} Persona Objeto con los datos de la persona que queremos escribir en el TR
+ * @returns La plantilla del cuerpo de la tabla con los datos actualizados 
+ */
+ Personas.plantillaFormularioPersona.actualiza = function (persona) {
+    return Personas.sustituyeTags(this.formulario, persona)
+}
+
+/**
+ * Imprime los datos de una persona como una tabla dentro de un formulario usando la plantilla del formulario.
+ * @param {persona} Persona Objeto con los datos de la persona
+ * @returns Una cadena con la tabla que tiene ya los datos actualizados
+ */
+ Personas.personaComoFormulario = function (persona) {
+    return Personas.plantillaFormularioPersona.actualiza(persona);
+}
+
+/**
  * Función para mostrar en pantalla todas las personas que se han recuperado de la BBDD.
  * @param {Vector_de_personas} vector Vector con los datos de las personas a mostrar
  */
@@ -324,11 +419,29 @@ Personas.plantillaTablaPersonas.actualiza = function (persona) {
     Personas.anteriorID = Personas.anterior(persona.ref['@ref'].id)
     Personas.siguienteID = Personas.siguiente(persona.ref['@ref'].id)
 
-    Personas.plantillaParaUnaPersona();
-    let msj = Personas.personaComoTabla(persona);
+    //Personas.plantillaParaUnaPersona();
+    let msj = Personas.personaComoFormulario(persona);
 
     // Borro toda la info de Article y la sustituyo por la que me interesa
     Frontend.Article.actualizar("Mostrar una persona", msj)
+
+    Personas.almacenaDatos(persona)
+}
+
+/**
+ * Almacena los datos de la persona que se está mostrando
+ * @param {Persona} persona Datos de la persona a almacenar
+ */
+ Personas.almacenaDatos = function (persona) {
+    Personas.personaMostrada = persona;
+}
+
+/**
+ * Recupera los valores almacenados de la persona que se estaba mostrando
+ * @return Datos de la persona a almacenada
+ */
+ Personas.recuperaDatosAlmacenados = function () {
+    return this.personaMostrada;
 }
 
 /**
@@ -356,8 +469,8 @@ Personas.anterior = function (idPersona) {
         if (Personas.vectorPersonas[i] == idPersona){
             return Personas.vectorPersonas[i - 1]
         }
-    }
-    return Personas.vectorPersonas[0];
+    } 
+    return Personas.vectorPersonas[Personas.vectorPersonas.length - 1];
 }
 
 /**
@@ -371,5 +484,144 @@ Personas.anterior = function (idPersona) {
             return Personas.vectorPersonas[i + 1]
         }
     }
-    return Personas.vectorPersonas[Personas.vectorPersonas.length - 1];
+    return Personas.vectorPersonas[0];
+}
+
+/**
+ * Establece disable = habilitando en los campos editables
+ * @param {boolean} Deshabilitando Indica si queremos deshabilitar o habilitar los campos
+ * @returns El propio objeto Personas, para concatenar llamadas
+ */
+ Personas.habilitarDeshabilitarCamposEditables = function (deshabilitando) {
+    deshabilitando = (typeof deshabilitando === "undefined" || deshabilitando === null) ? true : deshabilitando
+    for (let campo in Personas.form) {
+        document.getElementById(Personas.form[campo]).disabled = deshabilitando
+    }
+    return this
+}
+
+/**
+ * Establece disable = true en los campos editables
+ * @returns El propio objeto Personas, para concatenar llamadas
+ */
+Personas.deshabilitarCamposEditables = function () {
+    Personas.habilitarDeshabilitarCamposEditables(true)
+    return this
+}
+
+
+/**
+ * Establece disable = false en los campos editables
+ * @returns El propio objeto Personas, para concatenar llamadas
+ */
+Personas.habilitarCamposEditables = function () {
+    Personas.habilitarDeshabilitarCamposEditables(false)
+    return this
+}
+
+/**
+ * ????Muestra las opciones que tiene el usuario cuando selecciona Editar
+ * @returns El propio objeto Personas, para concatenar llamadas
+ */
+ Personas.opcionesMostrarOcultar = function (classname, mostrando) {
+    let opciones = document.getElementsByClassName(classname)
+    let claseQuitar = mostrando ? Frontend.CLASS_OCULTAR : Frontend.CLASS_MOSTRAR
+    let claseAniadir = !mostrando ? Frontend.CLASS_OCULTAR : Frontend.CLASS_MOSTRAR
+
+    for (let i = 0; i < opciones.length; ++i) {
+        Frontend.quitarClase(opciones[i], claseQuitar)
+            .aniadirClase(opciones[i], claseAniadir)
+    }
+    return this
+}
+
+/**
+ * Oculta todas las opciones secundarias
+ * @returns El propio objeto para encadenar llamadas
+ */
+Personas.ocultarOpcionesSecundarias = function () {
+    this.opcionesMostrarOcultar("opcion-secundaria", false)
+    return this
+}
+
+
+/**
+ * Muestra todas las opciones secundarias
+ * @returns El propio objeto para encadenar llamadas
+ */
+Personas.mostrarOpcionesSecundarias = function () {
+    this.opcionesMostrarOcultar("opcion-secundaria", true)
+    return this
+}
+
+
+/**
+ * Muestra las opciones que tiene el usuario cuando selecciona Editar
+ * @returns El propio objeto Personas, para concatenar llamadas
+ */
+Personas.mostrarOcionesTerciariasEditar = function () {
+    this.opcionesMostrarOcultar("opcion-terciaria editar", true)
+    return this
+}
+
+
+/**
+ * Oculta las opciones que tiene el usuario cuando selecciona Editar
+ * @returns El propio objeto Personas, para concatenar llamadas
+ */
+Personas.ocultarOcionesTerciariasEditar = function () {
+    this.opcionesMostrarOcultar("opcion-terciaria editar", false)
+    return this
+}
+
+/**
+ * Función que permite modificar los datos de una persona
+ */
+ Personas.editar = function () {
+    this.ocultarOpcionesSecundarias()
+    this.mostrarOcionesTerciariasEditar()
+    this.habilitarCamposEditables()
+}
+
+/**
+ * Función que permite cancelar la acción sobre los datos de una persona
+ */
+Personas.cancelar = function () {
+    this.imprimeUnaPersona(this.recuperaDatosAlmacenados())
+    this.deshabilitarCamposEditables()
+    this.ocultarOcionesTerciariasEditar()
+    this.mostrarOpcionesSecundarias()
+}
+
+
+/**
+ * Función para guardar los nuevos datos de una persona
+ */
+Personas.guardar = async function () {
+    try {
+        let url = Frontend.API_GATEWAY + "/plantilla/setTodo/"
+        let id_persona = document.getElementById("form-persona-id").value
+        const response = await fetch(url, {
+            method: 'POST', // *GET, POST, PUT, DELETE, etc.
+            mode: 'no-cors', // no-cors, cors, *same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'omit', // include, *same-origin, omit
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrer: 'no-referrer', // no-referrer, *client
+            body: JSON.stringify({
+                "id": id_persona,
+                "nombre": document.getElementById("form-persona-nombre").value,
+                "apellido": document.getElementById("form-persona-apellido").value,
+                "pais": document.getElementById("form-persona-pais").value,
+                "medallasOro": document.getElementById("form-persona-medallas").value,
+            }), // body data type must match "Content-Type" header
+        })
+        Personas.mostrar(id_persona)
+    } catch (error) {
+        alert("Error: No se han podido acceder al API Gateway " + error)
+        //console.error(error)
+    }
 }

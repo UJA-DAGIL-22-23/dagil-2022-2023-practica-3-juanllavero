@@ -215,10 +215,10 @@ describe("Personas.anterior: ", function () {
 
     it("debería devolver el id correcto, o en su defecto el primer id",
         function () {
-            expect(Personas.anterior("214145321233235") == "214145321233235").toBeTrue();
+            expect(Personas.anterior("214145321233235") == "214145321234233").toBeTrue();
             expect(Personas.anterior("214145321234233") == "21414567844321233").toBeTrue();
-            expect(Personas.anterior("adsadasf") == "214145321233235").toBeTrue();
-            expect(Personas.anterior(0) == "214145321233235").toBeTrue();
+            expect(Personas.anterior("adsadasf") == "214145321234233").toBeTrue();
+            expect(Personas.anterior(0) == "214145321234233").toBeTrue();
         });
 })
 
@@ -229,9 +229,9 @@ describe("Personas.siguiente: ", function () {
     it("debería devolver el id correcto, o en su defecto el último id",
         function () {
             expect(Personas.siguiente("214145321233235") == "21414567844321233").toBeTrue();
-            expect(Personas.siguiente("214145321234233") == "214145321234233").toBeTrue();
-            expect(Personas.siguiente("adsadasf") == "214145321234233").toBeTrue();
-            expect(Personas.siguiente(0) == "214145321234233").toBeTrue();
+            expect(Personas.siguiente("214145321234233") == "214145321233235").toBeTrue();
+            expect(Personas.siguiente("adsadasf") == "214145321233235").toBeTrue();
+            expect(Personas.siguiente(0) == "214145321233235").toBeTrue();
         });
 })
 

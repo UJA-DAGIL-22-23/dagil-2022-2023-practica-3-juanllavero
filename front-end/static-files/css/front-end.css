@@ -19,6 +19,10 @@
     display: inline-block;
 }
 
+.ocultar {
+    display: none;
+}
+
 .opcion-principal,
 .opcion-secundaria {
     border: 2px solid rgba(100, 100, 100, 0.5);
