@@ -30,6 +30,58 @@ function esperar(ms) {
     }
 }
 
+//Personas para probar los tests
+let persona = {
+    ref: {
+        "@ref": {
+            id: "214145321233"
+        }
+    },
+    ts: 1680537333040000,
+    data: {
+        nombre: "Andreas",
+        apellido: "Prommegger",
+        fechaNacimiento: {
+            dia: 10,
+            mes: 11,
+            año: 1980
+        },
+        pais: "Austria",
+        partMundiales: [
+            2003,
+            2004,
+            2006,
+            2009,
+            2015
+        ],
+        medallasOro: 3
+    }
+}
+
+let otra = {
+    ref: {
+        "@ref": {
+            id: "1244351234"
+        }
+    },
+    ts: 1680537333040000,
+    data: {
+        nombre: "Andrew",
+        apellido: "Prom",
+        fechaNacimiento: {
+            dia: 1,
+            mes: 1,
+            año: 1985
+        },
+        pais: "Austria",
+        partMundiales: [
+            2003,
+            2004
+        ],
+        medallasOro: 2
+    }
+}
+
 
 
 // SPECS a probar
@@ -232,6 +284,62 @@ describe("Personas.siguiente: ", function () {
             expect(Personas.siguiente("214145321234233") == "214145321233235").toBeTrue();
             expect(Personas.siguiente("adsadasf") == "214145321233235").toBeTrue();
             expect(Personas.siguiente(0) == "214145321233235").toBeTrue();
+        });
+})
+
+describe("Personas.almacenaDatos: ", function () {
+    Personas.almacenaDatos(persona)
+
+    it("se debería haber almacenado correctamente la persona en la variable Personas.personaMostrada",
+        function () {
+            expect(Personas.personaMostrada == persona).toBeTrue();
+            expect(Personas.personaMostrada == otra).toBeFalse();
+            expect(Personas.personaMostrada == null).toBeFalse();
+        });
+})
+
+describe("Personas.recuperaDatosAlmacenados: ", function () {
+    Personas.personaMostrada = persona
+
+    it("debe devolver la persona que se hay almacenada (p)",
+        function () {
+            expect(Personas.recuperaDatosAlmacenados() == persona).toBeTrue();
+            expect(Personas.recuperaDatosAlmacenados() == otra).toBeFalse();
+            expect(Personas.recuperaDatosAlmacenados() == null).toBeFalse();
+        });
+})
+
+describe("Personas.plantillaFormularioPersona.actualiza: ", function () {
+
+    it("debería devolver una fila de tabla con los datos de una persona, utilizando la función de Personas.plantillaFormularioPersona",
+        function () {
+            let msj = Personas.plantillaFormularioPersona.actualiza(persona)
+            expect(msj.includes(persona.ref["@ref"].id)).toBeTrue();
+            expect(msj.includes(persona.data.nombre)).toBeTrue();
+            expect(msj.includes(persona.data.apellido)).toBeTrue();
+            expect(msj.includes(persona.data.fechaNacimiento.dia)).toBeTrue();
+            expect(msj.includes(persona.data.fechaNacimiento.mes)).toBeTrue();
+            expect(msj.includes(persona.data.fechaNacimiento.año)).toBeTrue();
+            expect(msj.includes(persona.data.pais)).toBeTrue();
+            expect(msj.includes(persona.data.partMundiales)).toBeTrue();
+            expect(msj.includes(persona.data.medallasOro)).toBeTrue();
+        });
+})
+
+describe("Personas.personaComoFormulario: ", function () {
+
+    it("debería devolver una fila de tabla con los datos de una persona, utilizando la función de Personas.personaComoFormulario",
+        function () {
+            let msj = Personas.personaComoFormulario(persona)
+            expect(msj.includes(persona.ref["@ref"].id)).toBeTrue();
+            expect(msj.includes(persona.data.nombre)).toBeTrue();
+            expect(msj.includes(persona.data.apellido)).toBeTrue();
+            expect(msj.includes(persona.data.fechaNacimiento.dia)).toBeTrue();
+            expect(msj.includes(persona.data.fechaNacimiento.mes)).toBeTrue();
+            expect(msj.includes(persona.data.fechaNacimiento.año)).toBeTrue();
+            expect(msj.includes(persona.data.pais)).toBeTrue();
+            expect(msj.includes(persona.data.partMundiales)).toBeTrue();
+            expect(msj.includes(persona.data.medallasOro)).toBeTrue();
         });
 })
 

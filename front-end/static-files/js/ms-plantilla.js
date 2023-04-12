@@ -594,7 +594,6 @@ Personas.cancelar = function () {
     this.mostrarOpcionesSecundarias()
 }
 
-
 /**
  * Función para guardar los nuevos datos de una persona
  */
@@ -623,6 +622,5 @@ Personas.guardar = async function () {
         Personas.mostrar(id_persona)
     } catch (error) {
         alert("Error: No se han podido acceder al API Gateway " + error)
-        //console.error(error)
     }
 }
