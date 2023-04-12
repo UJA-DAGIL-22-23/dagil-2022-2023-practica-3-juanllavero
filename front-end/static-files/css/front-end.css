@@ -24,7 +24,8 @@
 }
 
 .opcion-principal,
-.opcion-secundaria {
+.opcion-secundaria,
+.opcion-terciaria {
     border: 2px solid rgba(100, 100, 100, 0.5);
     border-radius: .5em 0 .5em 0;
     padding: .5em;
@@ -41,7 +42,8 @@
 .opcion-principal {
     margin: 0 .5em 0 .5em;
 }
-.opcion-secundaria {
+.opcion-secundaria,
+.opcion-terciaria {
     max-width: 5em;
     min-width: 5em;
     margin: 0.2em auto 0.2em auto;

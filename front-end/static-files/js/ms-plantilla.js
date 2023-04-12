@@ -141,9 +141,10 @@ Personas.plantillaTablaPersonas.cabecera = `<table width="100%" class="listado-p
                     <th width="10%">Nombre</th>
                     <th width="20%">Apellido</th>
                     <th width="10%">Fecha de nacimiento</th>
-                    <th width="15%">País</th>
+                    <th width="10%">País</th>
                     <th width="15%">Participaciones mundiales</th>
                     <th width="10%">Medallas de oro</th>
+                    <th></th>
                 </thead>
                 <tbody>
 `;
