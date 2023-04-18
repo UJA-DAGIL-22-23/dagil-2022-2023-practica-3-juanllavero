@@ -119,6 +119,9 @@ Personas.siguienteID = "";
 /// Vector con las personas obtenidas de la base de datos
 Personas.vectorPersonas = [];
 
+/// Vector con las IDs de las personas obtenidas de la base de datos
+Personas.vectorPersonasID = [];
+
 // Tags que voy a usar para sustituir los campos
 Personas.plantillaTags = {
     "ID": "### ID ###",
@@ -139,13 +142,13 @@ Personas.plantillaTablaPersonas = {}
 // Cabecera de la tabla
 Personas.plantillaTablaPersonas.cabecera = `<table width="100%" class="listado-personas">
                 <thead>
-                    <th width="10%">ID</th>
-                    <th width="10%">Nombre</th>
-                    <th width="20%">Apellido</th>
-                    <th width="10%">Fecha de nacimiento</th>
-                    <th width="10%">País</th>
-                    <th width="15%">Participaciones mundiales</th>
-                    <th width="10%">Medallas de oro</th>
+                    <th width="10%" aria-sort="ascending"><a href="javascript:Personas.ordenarPor('ref['@ref'].id')">ID<span aria-hidden="true"></span></a></th>
+                    <th width="10%"><a href="javascript:Personas.ordenarPor('nombre')">Nombre<span aria-hidden="true"></span></a></th>
+                    <th width="20%"><a href="javascript:Personas.ordenarPor('apellido')">Apellido<span aria-hidden="true"></span></a></th>
+                    <th width="10%"><a href="javascript:Personas.ordenarPor('fechaNacimiento')">Fecha de nacimiento<span aria-hidden="true"></span></a></th>
+                    <th width="10%"><a href="javascript:Personas.ordenarPor('pais')">País<span aria-hidden="true"></span></a></th>
+                    <th width="15%"><a href="javascript:Personas.ordenarPor('partMundiales')">Participaciones mundiales<span aria-hidden="true"></span></a></th>
+                    <th width="10%"><a href="javascript:Personas.ordenarPor('medallasOro')">Medallas de oro<span aria-hidden="true"></span></a></th>
                     <th></th>
                 </thead>
                 <tbody>
@@ -338,6 +341,7 @@ Personas.recupera = async function (callBackFn) {
     let vectorPersonas = null
     if (response) {
         vectorPersonas = await response.json()
+        Personas.vectorPersonas = vectorPersonas
         callBackFn(vectorPersonas.data)
     }
 }
@@ -398,8 +402,8 @@ Personas.plantillaTablaPersonas.actualiza = function (persona) {
 
     // Compongo el contenido que se va a mostrar dentro de la tabla
     let msj = Personas.plantillaTablaPersonas.cabecera
-    Personas.vectorPersonas = []
-    vector.forEach(p => Personas.vectorPersonas.push(p.ref['@ref'].id))
+    Personas.vectorPersonasID = []
+    vector.forEach(p => Personas.vectorPersonasID.push(p.ref['@ref'].id))
     vector.forEach(e => msj += Personas.plantillaTablaPersonas.actualiza(e))
     msj += Personas.plantillaTablaPersonas.pie
 
@@ -470,28 +474,28 @@ Personas.plantillaTablaPersonas.actualiza = function (persona) {
  * Función para actualizar la variable que almacena el ID de la persona anterior a la actual
  */
 Personas.anterior = function (idPersona) {
-    if (Personas.vectorPersonas.length == 0)
+    if (Personas.vectorPersonasID.length == 0)
         return "No hay personas"
-    for (let i = 1; i < Personas.vectorPersonas.length; i++){
-        if (Personas.vectorPersonas[i] == idPersona){
-            return Personas.vectorPersonas[i - 1]
+    for (let i = 1; i < Personas.vectorPersonasID.length; i++){
+        if (Personas.vectorPersonasID[i] == idPersona){
+            return Personas.vectorPersonasID[i - 1]
         }
     } 
-    return Personas.vectorPersonas[Personas.vectorPersonas.length - 1];
+    return Personas.vectorPersonasID[Personas.vectorPersonasID.length - 1];
 }
 
 /**
  * Función para actualizar la variable que almacena el ID de la persona siguiente a la actual
  */
  Personas.siguiente = function (idPersona) {
-    if (Personas.vectorPersonas.length == 0)
+    if (Personas.vectorPersonasID.length == 0)
         return "No hay personas"
-    for (let i = 0; i < Personas.vectorPersonas.length - 1; i++){
-        if (Personas.vectorPersonas[i] == idPersona){
-            return Personas.vectorPersonas[i + 1]
+    for (let i = 0; i < Personas.vectorPersonasID.length - 1; i++){
+        if (Personas.vectorPersonasID[i] == idPersona){
+            return Personas.vectorPersonasID[i + 1]
         }
     }
-    return Personas.vectorPersonas[0];
+    return Personas.vectorPersonasID[0];
 }
 
 /**
@@ -629,4 +633,25 @@ Personas.guardar = async function () {
     } catch (error) {
         alert("Error: No se han podido acceder al API Gateway " + error)
     }
+}
+
+Personas.ordenarPor = function (param) {
+    let aux;
+    if (param == "ref['@ref'].id" || param == "nombre" || param == "apellido" || param == "pais" || param == "medallasOro"){
+        for (let i = 0; i < Personas.vectorPersonas.length; i++){
+            for (let j = i; j < Personas.vectorPersonas.length - 1; j++){
+                if (Personas.vectorPersonas[i].param < Personas.vectorPersonas[j + 1].param){
+                    aux = Personas.vectorPersonas[i]
+                    Personas.vectorPersonas[i] = Personas.vectorPersonas[j + 1]
+                    Personas.vectorPersonas[j + 1] = aux
+                }
+            }
+        }
+    }else if (param == "fechaNacimiento"){
+
+    }else if (param == "partMundiales"){
+
+    }
+
+    Personas.imprimeMuchasPersonas(Personas.vectorPersonas)
 }
