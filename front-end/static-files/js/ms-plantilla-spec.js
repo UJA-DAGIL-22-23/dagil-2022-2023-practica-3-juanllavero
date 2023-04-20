@@ -218,6 +218,23 @@ describe("Personas.personaComoTabla: ", function () {
         });
 })
 
+describe("Personas.sustituyeTags: ", function () {
+
+    it("debería devolver una fila de tabla con los datos de una persona",
+        function () {
+            let msj = Personas.personaComoTabla(persona)
+            expect(msj.includes(persona.ref["@ref"].id)).toBeTrue();
+            expect(msj.includes(persona.data.nombre)).toBeTrue();
+            expect(msj.includes(persona.data.apellido)).toBeTrue();
+            expect(msj.includes(persona.data.fechaNacimiento.dia)).toBeTrue();
+            expect(msj.includes(persona.data.fechaNacimiento.mes)).toBeTrue();
+            expect(msj.includes(persona.data.fechaNacimiento.año)).toBeTrue();
+            expect(msj.includes(persona.data.pais)).toBeTrue();
+            expect(msj.includes(persona.data.partMundiales)).toBeTrue();
+            expect(msj.includes(persona.data.medallasOro)).toBeTrue();
+        });
+})
+
 describe("Personas.plantillaTablaPersonas.actualiza: ", function () {
     let d = {
         ref: {
@@ -258,6 +275,17 @@ describe("Personas.plantillaTablaPersonas.actualiza: ", function () {
             expect(msj.includes(d.data.pais)).toBeTrue();
             expect(msj.includes(d.data.partMundiales)).toBeTrue();
             expect(msj.includes(d.data.medallasOro)).toBeTrue();
+        });
+})
+
+describe("Personas.imprimeMuchasPersonas: ", function () {
+
+    it("debería mostrar todas las personas del vector que se le pasa, almacenando en el vector Personas.vectorPersonasID las IDs de cada persona",
+        function () {
+            Personas.imprimeMuchasPersonas(Personas.vectorPersonas)
+            for (let i = 0; i < Personas.vectorPersonas.length; i++){
+                expect(Personas.vectorPersonas[i].ref['@ref'].id == Personas.vectorPersonasID[i]).toBeTrue();
+            }
         });
 })
 
@@ -329,6 +357,23 @@ describe("Personas.personaComoFormulario: ", function () {
     it("debería devolver una fila de tabla con los datos de una persona, utilizando la función de Personas.personaComoFormulario",
         function () {
             let msj = Personas.personaComoFormulario(persona)
+            expect(msj.includes(persona.ref["@ref"].id)).toBeTrue();
+            expect(msj.includes(persona.data.nombre)).toBeTrue();
+            expect(msj.includes(persona.data.apellido)).toBeTrue();
+            expect(msj.includes(persona.data.fechaNacimiento.dia)).toBeTrue();
+            expect(msj.includes(persona.data.fechaNacimiento.mes)).toBeTrue();
+            expect(msj.includes(persona.data.fechaNacimiento.año)).toBeTrue();
+            expect(msj.includes(persona.data.pais)).toBeTrue();
+            expect(msj.includes(persona.data.partMundiales)).toBeTrue();
+            expect(msj.includes(persona.data.medallasOro)).toBeTrue();
+        });
+})
+
+describe("Personas.imprimeUnaPersona: ", function () {
+
+    it("debería mostrar la persona que se le pasa como parámetro",
+        function () {
+            let msj = Personas.imprimeUnaPersona(persona)
             expect(msj.includes(persona.ref["@ref"].id)).toBeTrue();
             expect(msj.includes(persona.data.nombre)).toBeTrue();
             expect(msj.includes(persona.data.apellido)).toBeTrue();

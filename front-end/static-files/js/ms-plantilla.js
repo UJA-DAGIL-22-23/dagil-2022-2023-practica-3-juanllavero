@@ -439,6 +439,7 @@ Personas.plantillaTablaPersonas.actualiza = function (persona) {
     Frontend.Article.actualizar("Mostrar una persona", msj)
 
     Personas.almacenaDatos(persona)
+    return msj
 }
 
 /**
