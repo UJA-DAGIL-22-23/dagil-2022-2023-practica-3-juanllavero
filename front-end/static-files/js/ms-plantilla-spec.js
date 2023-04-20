@@ -263,10 +263,9 @@ describe("Personas.plantillaTablaPersonas.actualiza: ", function () {
 
 describe("Personas.anterior: ", function () {
 
-    Personas.vectorPersonas = [ "214145321233235", "21414567844321233", "214145321234233" ]
-
     it("debería devolver el id correcto, o en su defecto el primer id",
         function () {
+            Personas.vectorPersonasID = [ "214145321233235", "21414567844321233", "214145321234233" ]
             expect(Personas.anterior("214145321233235") == "214145321234233").toBeTrue();
             expect(Personas.anterior("214145321234233") == "21414567844321233").toBeTrue();
             expect(Personas.anterior("adsadasf") == "214145321234233").toBeTrue();
@@ -276,10 +275,9 @@ describe("Personas.anterior: ", function () {
 
 describe("Personas.siguiente: ", function () {
 
-    Personas.vectorPersonas = [ "214145321233235", "21414567844321233", "214145321234233" ]
-
     it("debería devolver el id correcto, o en su defecto el último id",
         function () {
+            Personas.vectorPersonasID = [ "214145321233235", "21414567844321233", "214145321234233" ]
             expect(Personas.siguiente("214145321233235") == "21414567844321233").toBeTrue();
             expect(Personas.siguiente("214145321234233") == "214145321233235").toBeTrue();
             expect(Personas.siguiente("adsadasf") == "214145321233235").toBeTrue();
@@ -340,6 +338,21 @@ describe("Personas.personaComoFormulario: ", function () {
             expect(msj.includes(persona.data.pais)).toBeTrue();
             expect(msj.includes(persona.data.partMundiales)).toBeTrue();
             expect(msj.includes(persona.data.medallasOro)).toBeTrue();
+        });
+})
+
+describe("Personas.ordenarPor: ", function () {
+    
+    it("debería ordenar el vector Personas.vectorPersonas según el parámetro pasado y posteriormente mostrar la lista de personas",
+        function () {
+            expect(Personas.ordenarPor("ID")).toBeTrue();
+            expect(Personas.ordenarPor("nombre")).toBeTrue();
+            expect(Personas.ordenarPor("apellido")).toBeTrue();
+            expect(Personas.ordenarPor("pais")).toBeTrue();
+            expect(Personas.ordenarPor("fechaNacimiento")).toBeTrue();
+            expect(Personas.ordenarPor("partMundiales")).toBeTrue();
+            expect(Personas.ordenarPor("medallasOro")).toBeTrue();
+            expect(Personas.ordenarPor("Nada")).toBeFalse();
         });
 })
 

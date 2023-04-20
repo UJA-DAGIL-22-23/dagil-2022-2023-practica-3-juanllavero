@@ -142,7 +142,7 @@ Personas.plantillaTablaPersonas = {}
 // Cabecera de la tabla
 Personas.plantillaTablaPersonas.cabecera = `<table width="100%" class="listado-personas">
                 <thead>
-                    <th width="10%" aria-sort="ascending"><a href="javascript:Personas.ordenarPor('ref['@ref'].id')">ID<span aria-hidden="true"></span></a></th>
+                    <th width="10%" aria-sort="ascending"><a href="javascript:Personas.ordenarPor('ID')">ID<span aria-hidden="true"></span></a></th>
                     <th width="10%"><a href="javascript:Personas.ordenarPor('nombre')">Nombre<span aria-hidden="true"></span></a></th>
                     <th width="20%"><a href="javascript:Personas.ordenarPor('apellido')">Apellido<span aria-hidden="true"></span></a></th>
                     <th width="10%"><a href="javascript:Personas.ordenarPor('fechaNacimiento')">Fecha de nacimiento<span aria-hidden="true"></span></a></th>
@@ -341,7 +341,7 @@ Personas.recupera = async function (callBackFn) {
     let vectorPersonas = null
     if (response) {
         vectorPersonas = await response.json()
-        Personas.vectorPersonas = vectorPersonas
+        Personas.vectorPersonas = vectorPersonas.data
         callBackFn(vectorPersonas.data)
     }
 }
@@ -406,6 +406,8 @@ Personas.plantillaTablaPersonas.actualiza = function (persona) {
     vector.forEach(p => Personas.vectorPersonasID.push(p.ref['@ref'].id))
     vector.forEach(e => msj += Personas.plantillaTablaPersonas.actualiza(e))
     msj += Personas.plantillaTablaPersonas.pie
+
+    console.log(vector)
 
     // Borro toda la info de Article y la sustituyo por la que me interesa
     Frontend.Article.actualizar("Listado de personas", msj)
@@ -637,21 +639,101 @@ Personas.guardar = async function () {
 
 Personas.ordenarPor = function (param) {
     let aux;
-    if (param == "ref['@ref'].id" || param == "nombre" || param == "apellido" || param == "pais" || param == "medallasOro"){
-        for (let i = 0; i < Personas.vectorPersonas.length; i++){
-            for (let j = i; j < Personas.vectorPersonas.length - 1; j++){
-                if (Personas.vectorPersonas[i].param < Personas.vectorPersonas[j + 1].param){
-                    aux = Personas.vectorPersonas[i]
-                    Personas.vectorPersonas[i] = Personas.vectorPersonas[j + 1]
-                    Personas.vectorPersonas[j + 1] = aux
+
+    switch (param) {
+        case "ID":
+            for (let i = 0; i < Personas.vectorPersonas.length; i++){
+                for (let j = i; j < Personas.vectorPersonas.length - 1; j++){
+                    if (Personas.vectorPersonas[i].ref['@ref'].id < Personas.vectorPersonas[j + 1].ref['@ref'].id){
+                        aux = Personas.vectorPersonas[i]
+                        Personas.vectorPersonas[i] = Personas.vectorPersonas[j + 1]
+                        Personas.vectorPersonas[j + 1] = aux
+                    }
                 }
             }
-        }
-    }else if (param == "fechaNacimiento"){
-
-    }else if (param == "partMundiales"){
-
+            break;
+        case "nombre":
+            for (let i = 0; i < Personas.vectorPersonas.length; i++){
+                for (let j = i; j < Personas.vectorPersonas.length - 1; j++){
+                    if (Personas.vectorPersonas[i].data.nombre > Personas.vectorPersonas[j + 1].data.nombre){
+                        aux = Personas.vectorPersonas[i]
+                        Personas.vectorPersonas[i] = Personas.vectorPersonas[j + 1]
+                        Personas.vectorPersonas[j + 1] = aux
+                    }
+                }
+            }
+            break;
+        case "apellido":
+            for (let i = 0; i < Personas.vectorPersonas.length; i++){
+                for (let j = i; j < Personas.vectorPersonas.length - 1; j++){
+                    if (Personas.vectorPersonas[i].data.apellido > Personas.vectorPersonas[j + 1].data.apellido){
+                        aux = Personas.vectorPersonas[i]
+                        Personas.vectorPersonas[i] = Personas.vectorPersonas[j + 1]
+                        Personas.vectorPersonas[j + 1] = aux
+                    }
+                }
+            }
+            break;
+        case "pais":
+            for (let i = 0; i < Personas.vectorPersonas.length; i++){
+                for (let j = i; j < Personas.vectorPersonas.length - 1; j++){
+                    if (Personas.vectorPersonas[i].data.pais > Personas.vectorPersonas[j + 1].data.pais){
+                        aux = Personas.vectorPersonas[i]
+                        Personas.vectorPersonas[i] = Personas.vectorPersonas[j + 1]
+                        Personas.vectorPersonas[j + 1] = aux
+                    }
+                }
+            }
+            break;
+        case "medallasOro":
+            for (let i = 0; i < Personas.vectorPersonas.length; i++){
+                for (let j = i; j < Personas.vectorPersonas.length - 1; j++){
+                    if (Personas.vectorPersonas[i].data.medallasOro < Personas.vectorPersonas[j + 1].data.medallasOro){
+                        aux = Personas.vectorPersonas[i]
+                        Personas.vectorPersonas[i] = Personas.vectorPersonas[j + 1]
+                        Personas.vectorPersonas[j + 1] = aux
+                    }
+                }
+            }
+            break;
+        case "fechaNacimiento":
+            for (let i = 0; i < Personas.vectorPersonas.length; i++){
+                for (let j = i; j < Personas.vectorPersonas.length - 1; j++){
+                    if (Personas.vectorPersonas[i].data.fechaNacimiento.año > Personas.vectorPersonas[j + 1].data.fechaNacimiento.año){
+                        aux = Personas.vectorPersonas[i]
+                                Personas.vectorPersonas[i] = Personas.vectorPersonas[j + 1]
+                                Personas.vectorPersonas[j + 1] = aux
+                    } else if (Personas.vectorPersonas[i].data.fechaNacimiento.año == Personas.vectorPersonas[j + 1].data.fechaNacimiento.año){
+                        if (Personas.vectorPersonas[i].data.fechaNacimiento.mes > Personas.vectorPersonas[j + 1].data.fechaNacimiento.mes){
+                            aux = Personas.vectorPersonas[i]
+                                Personas.vectorPersonas[i] = Personas.vectorPersonas[j + 1]
+                                Personas.vectorPersonas[j + 1] = aux
+                        } else if (Personas.vectorPersonas[i].data.fechaNacimiento.mes == Personas.vectorPersonas[j + 1].data.fechaNacimiento.mes){
+                            if ((Personas.vectorPersonas[i].data.fechaNacimiento.dia > Personas.vectorPersonas[j + 1].data.fechaNacimiento.dia)){
+                                aux = Personas.vectorPersonas[i]
+                                Personas.vectorPersonas[i] = Personas.vectorPersonas[j + 1]
+                                Personas.vectorPersonas[j + 1] = aux
+                            }
+                        }
+                    }
+                }
+            }
+            break;
+        case "partMundiales":
+            for (let i = 0; i < Personas.vectorPersonas.length; i++){
+                for (let j = i; j < Personas.vectorPersonas.length - 1; j++){
+                    if (Personas.vectorPersonas[i].data.partMundiales.length < Personas.vectorPersonas[j + 1].data.partMundiales.length){
+                        aux = Personas.vectorPersonas[i]
+                        Personas.vectorPersonas[i] = Personas.vectorPersonas[j + 1]
+                        Personas.vectorPersonas[j + 1] = aux
+                    }
+                }
+            }
+            break;
+        default:
+            return false;
     }
 
     Personas.imprimeMuchasPersonas(Personas.vectorPersonas)
+    return true
 }
