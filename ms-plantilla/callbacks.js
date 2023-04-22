@@ -131,6 +131,46 @@ const CB_MODEL_SELECTS = {
             CORS(res).status(500).json({ error: error.description })
         }
     },
+    /**
+    * Método para crear una persona
+    * @param {*} req Objeto con los parámetros que se han pasado en la llamada a esta URL 
+    * @param {*} res Objeto Response con las respuesta que se va a dar a la petición recibida
+    */
+     crear: async (req, res) => {
+        try {
+            let valorDevuelto = {}
+            let data = (Object.values(req.body)[0] === '') ? JSON.parse(Object.keys(req.body)[0]) : req.body
+            let persona = await client.query(
+                q.Create(
+                    q.Collection(COLLECTION),
+                    { 
+                        data: {
+                            nombre: data.nombre,
+                            apellido: data.apellido,
+                            fechaNacimiento: {
+                                dia: data.fechaN.dia,
+                                mes: data.fechaN.mes,
+                                año: data.fechaN.año
+                            },
+                            pais: data.pais,
+                            partMundiales: data.partMundiales,
+                            medallasOro: data.medallasOro
+                        },
+                    },
+                )
+            )
+            .then((ret) => {
+                valorDevuelto = ret
+                CORS(res)
+                    .status(200)
+                    .header( 'Content-Type', 'application/json' )
+                    .json(valorDevuelto)
+            })
+
+        } catch (error) {
+            CORS(res).status(500).json({ error: error.description })
+        }
+    },
 }
 
 // CALLBACKS ADICIONALES

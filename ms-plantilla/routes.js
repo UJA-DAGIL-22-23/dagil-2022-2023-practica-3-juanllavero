@@ -79,6 +79,17 @@ router.get("/test_db", async (req, res) => {
     }
 });
 
+/**
+ * Crea una persona
+ */
+ router.post("/crear", async (req, res) => {
+    try {
+        await callbacks.crear(req, res)
+    } catch (error) {
+        console.log(error);
+    }
+});
+
 
 // Exporto el módulo para poder usarlo en server
 module.exports = router;

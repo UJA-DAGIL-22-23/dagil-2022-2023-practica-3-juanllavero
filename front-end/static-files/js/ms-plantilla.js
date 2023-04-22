@@ -223,12 +223,35 @@ Personas.plantillaParaVariasPersonas = function () {
 Personas.form = {
     NOMBRE: "form-persona-nombre",
     APELLIDO: "form-persona-apellido",
+    ["FECHA DE NACIMIENTO"]: "form-persona-fechaN",
     PAÍS: "form-persona-pais",
-    ["MEDALLAS DE ORO"]: "form-persona-medallas",
+    ["PARTICIPACIONES MUNDIALES"]: "form-persona-participaciones",
+    ["MEDALLAS DE ORO"]: "form-persona-medallas"
 }
 
 //Persona que se muestra actualmente
 Personas.personaMostrada = null
+
+//Plantilla para crear una persona
+Personas.nuevaPersona = {
+    ref: {
+        "@ref": {
+            id: ""
+        }
+    },
+    data: {
+        nombre: "",
+        apellido: "",
+        fechaNacimiento: {
+            dia: 1,
+            mes: 1,
+            año: 2000
+        },
+        pais: "",
+        partMundiales: [],
+        medallasOro: 0
+    }
+}
 
 /// Plantilla para poner los datos de una persona en un tabla dentro de un formulario
 Personas.plantillaFormularioPersona = {}
@@ -254,9 +277,11 @@ Personas.plantillaFormularioPersona.formulario = `
                 <td><input type="text" class="form-persona-elemento editable" disabled
                         id="form-persona-apellido" value="${Personas.plantillaTags.APELLIDO}" 
                         name="apellido_persona"/>
+                </td>
                 <td><input type="text" class="form-persona-elemento" disabled
                         id="form-persona-fechaN" value="${Personas.plantillaTags["FECHA DE ACIMIENTO"]}" 
                         name="fechaN_persona"/>
+                </td>
                 <td><input type="text" class="form-persona-elemento editable" disabled
                         id="form-persona-pais" required value="${Personas.plantillaTags.PAÍS}" 
                         name="pais_persona"/>
@@ -295,6 +320,68 @@ Personas.plantillaFormularioPersona.formulario = `
                 <a href="javascript:Personas.mostrar('${Personas.plantillaTags.SIGUIENTE}')" class="opcion-secundaria mostrar">Siguiente</a>
             </div>
         </td>
+        <td></td>
+    </tr>
+</table>
+`;
+
+/// Plantilla para poner los datos de una persona en un tabla dentro de un formulario
+Personas.plantillaFormularioNueva = {}
+
+// Cabecera del formulario
+Personas.plantillaFormularioNueva.formulario = `
+<form method='post' action=''>
+    <table width="100%" class="listado-personas">
+        <thead>
+            <th width="10%">Id</th><th width="20%">Nombre</th><th width="20%">Apellido</th><th width="10%">Fecha de nacimiento</th>
+            <th width="15%">País</th><th width="25%">Participaciones mundiales</th><th width="10%">Medallas de oro</th>
+        </thead>
+        <tbody>
+            <tr title="${Personas.plantillaTags.ID}">
+                <td><input type="text" class="form-persona-elemento" disabled id="form-persona-id"
+                        value="${Personas.plantillaTags.ID}" 
+                        name="id_persona"/>
+                </td>
+                <td><input type="text" class="form-persona-elemento editable" disabled
+                        id="form-persona-nombre" required value="${Personas.plantillaTags.NOMBRE}" 
+                        name="nombre_persona"/>
+                </td>
+                <td><input type="text" class="form-persona-elemento editable" disabled
+                        id="form-persona-apellido" value="${Personas.plantillaTags.APELLIDO}" 
+                        name="apellido_persona"/>
+                </td>
+                <td><input type="text" class="form-persona-elemento editable" disabled
+                        id="form-persona-fechaN" value="${Personas.plantillaTags["FECHA DE ACIMIENTO"]}" 
+                        name="fechaN_persona"/>
+                </td>
+                <td><input type="text" class="form-persona-elemento editable" disabled
+                        id="form-persona-pais" required value="${Personas.plantillaTags.PAÍS}" 
+                        name="pais_persona"/>
+                </td>
+                <td><input type="text" class="form-persona-elemento editable" disabled
+                        id="form-persona-participaciones" required value="${Personas.plantillaTags["PARTICIPACIONES MUNDIALES"]}" 
+                        name="participaciones_persona"/>
+                </td>
+                <td><input type="number" class="form-persona-elemento editable" disabled
+                        id="form-persona-medallas" max="20" required value="${Personas.plantillaTags["MEDALLAS DE ORO"]}" 
+                        name="medallas_persona"/>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+<table width="100%" class="listado-personas">
+    <tr>
+        <td></td>
+        <td></td>
+        <td>
+            <div><a href="javascript:Personas.crear()" class="opcion-terciaria editar">Guardar</a></div>
+        </td>
+        <td></td>
+        <td>
+            <div><a href="javascript:Personas.cancelar()" class="opcion-terciaria editar">Cancelar</a></div>
+        </td>
+        <td></td>
         <td></td>
     </tr>
 </table>
@@ -380,7 +467,11 @@ Personas.plantillaTablaPersonas.actualiza = function (persona) {
  * @param {Persona} Persona Objeto con los datos de la persona que queremos escribir en el TR
  * @returns La plantilla del cuerpo de la tabla con los datos actualizados 
  */
- Personas.plantillaFormularioPersona.actualiza = function (persona) {
+Personas.plantillaFormularioPersona.actualiza = function (persona) {
+    return Personas.sustituyeTags(this.formulario, persona)
+}
+
+Personas.plantillaFormularioNueva.actualiza = function (persona) {
     return Personas.sustituyeTags(this.formulario, persona)
 }
 
@@ -389,8 +480,12 @@ Personas.plantillaTablaPersonas.actualiza = function (persona) {
  * @param {persona} Persona Objeto con los datos de la persona
  * @returns Una cadena con la tabla que tiene ya los datos actualizados
  */
- Personas.personaComoFormulario = function (persona) {
+Personas.personaComoFormulario = function (persona) {
     return Personas.plantillaFormularioPersona.actualiza(persona);
+}
+
+Personas.personaNuevaComoFormulario = function (persona) {
+    return Personas.plantillaFormularioNueva.actualiza(persona);
 }
 
 /**
@@ -614,6 +709,7 @@ Personas.guardar = async function () {
     try {
         let url = Frontend.API_GATEWAY + "/plantilla/setTodo/"
         let id_persona = document.getElementById("form-persona-id").value
+        
         const response = await fetch(url, {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
             mode: 'no-cors', // no-cors, cors, *same-origin
@@ -737,4 +833,48 @@ Personas.ordenarPor = function (param) {
 
     Personas.imprimeMuchasPersonas(Personas.vectorPersonas)
     return true
+}
+
+Personas.nueva = function () {
+    let msj = Personas.personaNuevaComoFormulario(Personas.nuevaPersona);
+    Frontend.Article.actualizar("Mostrar una persona", msj)
+    Personas.editar()
+}
+
+/**
+ * Función para crear una persona
+ */
+ Personas.crear = async function () {
+    try {
+        let url = Frontend.API_GATEWAY + "/plantilla/crear/"
+        let fechaString = document.getElementById("form-persona-fechaN").value
+        let fechaN = fechaString.split("/")
+
+        const response = await fetch(url, {
+            method: 'POST', // *GET, POST, PUT, DELETE, etc.
+            mode: 'no-cors', // no-cors, cors, *same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'omit', // include, *same-origin, omit
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrer: 'no-referrer', // no-referrer, *client
+            body: JSON.stringify({
+                "nombre": document.getElementById("form-persona-nombre").value,
+                "apellido": document.getElementById("form-persona-apellido").value,
+                "fechaNacimiento": {
+                    "dia": fechaN[0],
+                    "mes": fechaN[1],
+                    "año": fechaN[2]
+                },
+                "pais": document.getElementById("form-persona-pais").value,
+                "partMundiales": document.getElementById("form-persona-participaciones"),
+                "medallasOro": document.getElementById("form-persona-medallas").value,
+            }), // body data type must match "Content-Type" header
+        })
+        Personas.listar()
+    } catch (error) {
+        alert("Error: No se han podido acceder al API Gateway " + error)
+    }
 }
