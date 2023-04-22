@@ -69,7 +69,7 @@ router.get("/test_db", async (req, res) => {
 });
 
 /**
- * Modifica el email de la persona con el id pasado
+ * Modifica los datos de una persona
  */
  router.post("/setTodo", async (req, res) => {
     try {
