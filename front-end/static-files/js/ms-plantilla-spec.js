@@ -82,6 +82,10 @@ let otra = {
     }
 }
 
+let vectorP = [
+    persona, otra
+]
+
 
 
 // SPECS a probar
@@ -282,9 +286,9 @@ describe("Personas.imprimeMuchasPersonas: ", function () {
 
     it("debería mostrar todas las personas del vector que se le pasa, almacenando en el vector Personas.vectorPersonasID las IDs de cada persona",
         function () {
-            Personas.imprimeMuchasPersonas(Personas.vectorPersonas)
-            for (let i = 0; i < Personas.vectorPersonas.length; i++){
-                expect(Personas.vectorPersonas[i].ref['@ref'].id == Personas.vectorPersonasID[i]).toBeTrue();
+            Personas.imprimeMuchasPersonas(vectorP)
+            for (let i = 0; i < vectorP.length; i++){
+                expect(vectorP[i].ref['@ref'].id == Personas.vectorPersonasID[i]).toBeTrue();
             }
         });
 })
