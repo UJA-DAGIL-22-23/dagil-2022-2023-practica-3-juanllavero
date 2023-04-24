@@ -331,7 +331,17 @@ HU - Ordenar por campo
 ![HUOrdenarPorCampo](./assets/img/HUOrdenarPorCampo.png)
 ![HUOrdenarPorCampoCodigo](./assets/img/HUOrdenarPorCampoCodigo.png)
 
+Final del incremento
 
+Al final, se ha implementado únicamente una historia de usuario de las 3 propuestas al principio del incremento. Esto se debe a que se me ha presentado un error 500 a la hora de realizar la petición para crear un nuevo 
+documento en la base de datos; sin poder llegar a solucionar dicho error. Como consecuencia de invertir tiempo en intentar solucionarlo, asegurándome de que lo realizaba igual que en la documentación de Fauna, al igual que 
+estudiando proyectos de terceros, y todo ello sin dar con una solución; he decidido no implementar estas historias de usuario y realizar una release con la historia ya implementada de este incremento, para así tener una versión 
+más completa que el incremento anterior.
+
+Viéndolo con mayor perspectiva ahora, este problema se podría haber evitado proponiendo más historias de usuario para este incremento, así podría haber dedicado tiempo en implementar otras historias de usuario en vez de intentar solucionar 
+en vano el error que provoca la implementación de una en concreto.
+
+![Incremento3Final](./assets/img/Incremento3Final.png)
 
 
 [![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-c66648af7eb3fe8bc4f294546bfd86ef473780cde1dea487d3c4ff354943c9ae.svg)](https://classroom.github.com/online_ide?assignment_repo_id=10434635&assignment_repo_type=AssignmentRepo)
